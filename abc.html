@@ -1,0 +1,24 @@
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous">
+</script>
+<button onclick="apiRequest('Post','http://localhost:3000/api/login')">Login me</button> 
+
+<button onclick="apiRequest('Get','http://localhost:3000/api/posts')">Click me</button> 
+
+<script>
+    function apiRequest(type, url) {
+    var token=window.localStorage.getItem("token")
+    $.ajax({
+      url: url,
+      type: type,
+      headers: { "Authorization": "Bearer " + token},
+      success : function (response) {
+        if(type=='Post'){
+          window.localStorage.setItem("token", response.token);
+        }
+      }
+    })
+  }
+</script>
